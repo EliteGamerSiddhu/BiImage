@@ -1,0 +1,1 @@
+"# BiImage"  initgit add README.mdgit commit -m "first commit"git branch -M maingit remote add origin https://github.com/EliteGamerSiddhu/BiImage.gitgit push -u origin main
