@@ -1,3 +1,21 @@
 class one_bpp:
     white = '1'
     black = '0'
+
+class four_bpp:
+    black = '0000'
+    ultramarine = '1000'
+    salem = '0100'
+    russet = '0010'
+    brown_pod = '0001'
+    summer_sky = '1100'
+    olivine = '0110'
+    seagull = '1101'
+    ecstasy = '0011'
+    royal_purple = '1001'
+    violet_blue = '1010'
+    fruit_salad = '0101'
+    light_blue = '1110'
+    mindaro = '0111'
+    persian_pink = '1011'
+    white = '1111'
