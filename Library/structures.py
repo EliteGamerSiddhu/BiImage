@@ -28,21 +28,24 @@ class PIXEL_ARRAY:
                 return PIXEL_ARRAY(pixel_arr)
 
 
-    def make_pixel_array(width, height, colour):
+    def make_pixel_array(width : int, height : int, colour : str):
         row_arr = colour * width
-        if len(row_arr) % 32 != 0:
-            row_arr += '0' * (32 - len(row_arr) % 32)
+        if len(row_arr) % 32 != 0:                      #Making sure that each row starts with a multiple of 4 bytes
+            row_arr += '0' * (32 - len(row_arr) % 32)   #by making the string a multiple of 32 bits
 
         byte_list = []
-        for i in range(len(row_arr) - 7):
+        for i in range(0, len(row_arr) - 7, 8): #Works if i remove stepping which adds large amounts of useless information
+                                                #in the end of the file
             data = row_arr[i:i+8]
             byte_list.append(data)
 
         pixel_row_arr = b''
         for i in byte_list:
-            pixel_row_arr += int(i, 2).to_bytes(1, 'little')
+            pixel_row_arr += int(i, 2).to_bytes(1, 'little')  #converting each 8 bits to 1 byte
 
         pixel_arr = pixel_row_arr * height
+
+        #pixel_arr += b'00000000' This is needed by 1 bpp to work for some unknown reasons
 
         return pixel_arr
 

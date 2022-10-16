@@ -1,4 +1,4 @@
-import string
+import math
 
 LCS_CALIBRATED_RGB = '0x00000000'
 LCS_sRGB = '0x73524742'
@@ -36,14 +36,7 @@ def calcFileSize(width : int, height : int, bpp : int, dib_type : str):
         dib_size = 108
     elif dib_type == 'V5':
         dib_size = 124
-    row_size_bits = bpp * width
-    if  row_size_bits % 32 != 0:
-        row_size = (row_size_bits // 32 + 1) * 4
-    else:
-        row_size = row_size_bits // 32
-    
-    total_arr_size = row_size * height
-    size = file_header_size + dib_size + total_arr_size
+    size = file_header_size + dib_size + calcPixelArraySize(width, height, bpp)
     return int(size)
 
 def pixel_offset(dib_type : str):
@@ -65,11 +58,6 @@ def pixel_offset(dib_type : str):
     return int(offset)
 
 def calcPixelArraySize(width : int, height : int, bpp : int):
-    row_size_bits = bpp * width
-    if  row_size_bits % 32 != 0:
-        row_size = (row_size_bits // 32 + 1) * 4
-    else:
-        row_size = row_size_bits // 32
-    
-    total_arr_size = row_size * height
-    return int(total_arr_size)
+    row_size = math.ceil((bpp * width)/32) * 4
+    pixel_array_size = row_size * height
+    return int(pixel_array_size)
